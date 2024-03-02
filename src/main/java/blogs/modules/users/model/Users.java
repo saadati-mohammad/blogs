@@ -1,10 +1,15 @@
 package blogs.modules.users.model;
 
+import blogs.modules.posts.model.Posts;
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "users_tbl")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Users {
     @Id
     @GeneratedValue
@@ -15,6 +20,10 @@ public class Users {
     private String password;
     private String name;
     private String cover;
+
+    //    @JsonManagedReference
+    @OneToMany(mappedBy = "users")
+    private List<Posts> posts;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -70,6 +79,14 @@ public class Users {
 
     public void setCover(String cover) {
         this.cover = cover;
+    }
+
+    public List<Posts> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Posts> posts) {
+        this.posts = posts;
     }
 
     public LocalDateTime getCreatedAt() {
