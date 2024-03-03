@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "posts_tbl")
@@ -27,6 +28,10 @@ public class Posts {
 //    @JsonBackReference
     @ManyToOne
     private Users users;
+
+    @ManyToMany
+//    @JoinTable(name = "post_category")
+    private List<Category> categories;
 
     @Column(name = "created_at")
     private Timestamp createdAt;
@@ -75,6 +80,14 @@ public class Posts {
 
     public void setUsers(Users users) {
         this.users = users;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 
     public Timestamp getCreatedAt() {

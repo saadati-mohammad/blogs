@@ -16,11 +16,11 @@ public class PostsService {
         this.postsRepository = postsRepository;
     }
 
-    public Posts registerPost(Posts posts){
+    public Posts registerPost(Posts posts) {
         return this.postsRepository.save(posts);
     }
 
-    public List<Posts> findAllPosts(){
+    public List<Posts> findAllPosts() {
         return this.postsRepository.findAll();
     }
 }
