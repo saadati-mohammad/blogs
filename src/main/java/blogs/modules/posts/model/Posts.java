@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -23,6 +26,10 @@ public class Posts {
     private String body;
     private String cover;
 
+    @Transient
+    @JsonIgnore
+    private MultipartFile file;
+
     //    @JoinColumn(name = "user_id_fk",referencedColumnName = "created_at")
 //    @JsonIgnore
 //    @JsonBackReference
@@ -33,13 +40,26 @@ public class Posts {
 //    @JoinTable(name = "post_category")
     private List<Category> categories;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", updatable = false)
+    @CreationTimestamp
     private Timestamp createdAt;
 
     @Column(name = "updated_at")
+    @UpdateTimestamp
     private Timestamp updatedAt;
 
     public Posts() {
+    }
+
+    public Posts(String title, String body) {
+        this.title = title;
+        this.body = body;
+    }
+
+    public Posts(String title, String body, String cover) {
+        this.title = title;
+        this.body = body;
+        this.cover = cover;
     }
 
     public Long getId() {
@@ -72,6 +92,14 @@ public class Posts {
 
     public void setCover(String cover) {
         this.cover = cover;
+    }
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
 
     public Users getUsers() {

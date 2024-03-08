@@ -1,0 +1,14 @@
+a.text-dark:hover .card-body {
+    color: #00aae7 !important;
+}
+
+.validation {
+    margin-top: 10px;
+    color: #e8200e;
+    font-size: 14px;
+}
+
+.validation:before {
+    content: '*';
+    margin-right: 3px;
+}
